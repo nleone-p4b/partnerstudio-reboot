@@ -9,20 +9,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@nlpartnerstudio.com',
-    href: 'mailto:info@nlpartnerstudio.com',
+    value: 'leonenicola10@gmail.com',
+    href: 'mailto:leonenicola10@gmail.com',
   },
   {
     icon: Phone,
     label: 'Telefono',
-    value: '+39 XXX XXX XXXX',
-    href: 'tel:+39XXXXXXXXXX',
-  },
-  {
-    icon: MapPin,
-    label: 'Sede',
-    value: 'Roma, Italia',
-    href: '#',
+    value: '+39 389 948 1742',
+    href: 'tel:+393899481742',
   },
 ];
 
