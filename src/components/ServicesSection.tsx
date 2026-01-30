@@ -55,9 +55,9 @@ const services = [
   },
   {
     icon: Zap,
-    title: 'Gestione Eventi',
-    description: 'Organizzazione e gestione di eventi corporate, conferenze e workshop. Oltre 50 eventi gestiti con successo.',
-    features: ['Eventi corporate', 'Conferenze', 'Workshop'],
+    title: 'Gestione Progetti',
+    description: 'Gestione e coordinamento di progetti complessi, conferenze e workshop. Oltre 50 progetti completati con successo.',
+    features: ['Project management', 'Conferenze', 'Workshop'],
   },
 ];
 

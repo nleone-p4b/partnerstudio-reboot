@@ -150,16 +150,6 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Office Hours */}
-            <div className="card-elevated p-8 bg-primary/5">
-              <h4 className="font-display text-xl font-medium mb-4">
-                Orari di ufficio
-              </h4>
-              <div className="space-y-2 text-muted-foreground">
-                <p>Lunedì - Venerdì: 9:00 - 18:00</p>
-                <p>Sabato - Domenica: Chiuso</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

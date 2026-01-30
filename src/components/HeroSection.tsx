@@ -2,7 +2,7 @@ import { ArrowRight, Sparkles, TrendingUp, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const stats = [
-  { value: '50+', label: 'Eventi Gestiti', icon: Sparkles },
+  { value: '50+', label: 'Progetti', icon: Sparkles },
   { value: '4', label: 'Università', icon: Users },
   { value: '10+', label: 'Paesi', icon: TrendingUp },
 ];
@@ -29,7 +29,7 @@ export function HeroSection() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full animate-fade-up">
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                AI-Powered Business Optimization
+                Strategic Advisory & Growth Partnership
               </span>
             </div>
 
