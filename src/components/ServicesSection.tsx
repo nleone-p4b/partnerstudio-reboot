@@ -8,7 +8,6 @@ import {
   Users, 
   Zap 
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const services = [
   {
@@ -74,7 +73,7 @@ export function ServicesSection() {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <div
               key={service.title}
               className="group card-elevated p-6 hover-lift"
@@ -102,13 +101,6 @@ export function ServicesSection() {
               </ul>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Button variant="gold" size="lg" asChild>
-            <a href="#contact">Richiedi una Consulenza</a>
-          </Button>
         </div>
       </div>
     </section>
