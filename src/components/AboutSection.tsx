@@ -28,18 +28,13 @@ export function AboutSection() {
     <section id="about" className="section-padding bg-gradient-section">
       <div className="container-wide mx-auto">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
             Chi Siamo
           </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance">
+          <h2 className="font-display text-2xl md:text-3xl text-balance">
             Doppia anima: rigore accademico e pragmatismo operativo
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Aiutiamo le aziende a trasformare le sfide operative e strategiche in opportunità 
-            di crescita e innovazione, combinando una profonda conoscenza tecnologica con 
-            una visione manageriale.
-          </p>
         </div>
 
         {/* Highlights Grid */}
