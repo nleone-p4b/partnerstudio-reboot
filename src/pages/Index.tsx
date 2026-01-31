@@ -3,7 +3,6 @@ import { HeroSection } from '@/components/HeroSection';
 import { PartnersLogoStrip } from '@/components/PartnersLogoStrip';
 import { AboutSection } from '@/components/AboutSection';
 import { ServicesSection } from '@/components/ServicesSection';
-import { ExpertiseSection } from '@/components/ExpertiseSection';
 import { PartnershipsSection } from '@/components/PartnershipsSection';
 import { PortfolioSection } from '@/components/PortfolioSection';
 import { ContactSection } from '@/components/ContactSection';
@@ -18,7 +17,6 @@ const Index = () => {
         <PartnersLogoStrip />
         <AboutSection />
         <ServicesSection />
-        <ExpertiseSection />
         <PartnershipsSection />
         <PortfolioSection />
         <ContactSection />
