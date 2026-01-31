@@ -6,7 +6,6 @@ import nlLogo from '@/assets/nl-partner-logo.png';
 const navItems = [
   { label: 'Chi Siamo', href: '#about' },
   { label: 'Servizi', href: '#services' },
-  { label: 'Expertise', href: '#expertise' },
   { label: 'Partnership', href: '#partnerships' },
   { label: 'Portfolio', href: '#portfolio' },
 ];

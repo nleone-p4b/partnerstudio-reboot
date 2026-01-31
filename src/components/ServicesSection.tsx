@@ -66,16 +66,9 @@ export function ServicesSection() {
     <section id="services" className="section-padding bg-background">
       <div className="container-wide mx-auto">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="text-center mb-12">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
             I Nostri Servizi
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance">
-            Soluzioni complete per la trasformazione aziendale
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Un'offerta integrata che combina consulenza strategica, innovazione tecnologica 
-            e formazione per guidare le aziende verso l'eccellenza operativa.
           </p>
         </div>
 

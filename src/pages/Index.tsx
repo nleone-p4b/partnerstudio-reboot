@@ -1,9 +1,8 @@
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
-import { PartnersLogoStrip } from '@/components/PartnersLogoStrip';
 import { AboutSection } from '@/components/AboutSection';
 import { ServicesSection } from '@/components/ServicesSection';
-import { PartnershipsSection } from '@/components/PartnershipsSection';
+import { PartnersLogoStrip } from '@/components/PartnersLogoStrip';
 import { PortfolioSection } from '@/components/PortfolioSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
@@ -14,10 +13,9 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <PartnersLogoStrip />
         <AboutSection />
         <ServicesSection />
-        <PartnershipsSection />
+        <PartnersLogoStrip />
         <PortfolioSection />
         <ContactSection />
       </main>
