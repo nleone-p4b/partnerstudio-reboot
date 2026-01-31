@@ -62,7 +62,7 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section id="services" className="px-4 pt-6 pb-10 md:px-8 md:pt-8 md:pb-14 lg:px-16 lg:pt-10 lg:pb-20 bg-background">
+    <section id="services" className="px-4 pt-4 pb-10 md:px-8 md:pt-6 md:pb-14 lg:px-16 lg:pt-8 lg:pb-20 bg-background">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
