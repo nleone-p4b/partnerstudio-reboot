@@ -3,9 +3,12 @@ import { Button } from '@/components/ui/button';
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-hero pt-20">
+    <section 
+      className="relative min-h-screen flex items-center bg-gradient-hero pt-20"
+      aria-labelledby="hero-heading"
+    >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 opacity-[0.03]" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
@@ -29,6 +32,7 @@ export function HeroSection() {
 
             {/* Headline */}
             <h1
+              id="hero-heading"
               className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight animate-fade-up"
               style={{ animationDelay: '0.1s' }}
             >

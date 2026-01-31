@@ -30,13 +30,15 @@ export function Header() {
       }`}
     >
       <div className="container-wide mx-auto px-4 md:px-8">
-        <nav className="flex items-center justify-between">
+        <nav className="flex items-center justify-between" aria-label="Navigazione principale">
           {/* Logo */}
-          <a href="#" className="flex items-center">
+          <a href="#" className="flex items-center" aria-label="NL Partner Studio - Torna alla home">
             <img
               src={nlLogo}
-              alt="NL Partner Studio"
+              alt="NL Partner Studio - Consulenza Strategica"
               className="h-10 md:h-12 w-auto"
+              width="120"
+              height="48"
             />
           </a>
 

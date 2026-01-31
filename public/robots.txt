@@ -1,3 +1,6 @@
+# NL Partner Studio - Robots.txt
+# https://partnerstudio-reboot.lovable.app
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://partnerstudio-reboot.lovable.app/sitemap.xml

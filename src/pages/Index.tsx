@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main role="main" aria-label="Contenuto principale">
         <HeroSection />
         <AboutSection />
         <ServicesSection />
@@ -23,3 +23,4 @@ const Index = () => {
 };
 
 export default Index;
+
