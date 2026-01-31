@@ -99,7 +99,7 @@ export function Footer() {
             © {new Date().getFullYear()} NL Partner Studio. Tutti i diritti riservati.
           </p>
           <p className="text-sm text-background/50">
-            P.IVA: XX XXX XXX XXX
+            P.IVA: 04886240615
           </p>
         </div>
       </div>
