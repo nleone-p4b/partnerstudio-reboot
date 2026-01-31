@@ -7,7 +7,6 @@ const navItems = [
   { label: 'Chi Siamo', href: '#about' },
   { label: 'Servizi', href: '#services' },
   { label: 'Partnership', href: '#partnerships' },
-  { label: 'Portfolio', href: '#portfolio' },
 ];
 
 export function Header() {
