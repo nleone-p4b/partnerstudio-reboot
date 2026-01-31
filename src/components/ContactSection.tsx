@@ -4,25 +4,64 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 export function ContactSection() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast({
-      title: 'Messaggio inviato!',
-      description: 'Ti risponderemo il prima possibile.',
-    });
-    
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || undefined,
+          company: formData.company.trim() || undefined,
+          message: formData.message.trim(),
+        },
+      });
+
+      if (error) {
+        console.error('Error sending email:', error);
+        throw new Error(error.message || 'Errore durante l\'invio');
+      }
+
+      if (!data?.success) {
+        throw new Error(data?.error || 'Errore durante l\'invio');
+      }
+
+      toast({
+        title: 'Messaggio inviato!',
+        description: 'Ti risponderemo il prima possibile.',
+      });
+      
+      setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: 'Errore',
+        description: error instanceof Error ? error.message : 'Si è verificato un errore durante l\'invio. Riprova più tardi.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -43,8 +82,12 @@ export function ContactSection() {
                   </label>
                   <Input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Il tuo nome"
                     required
+                    maxLength={100}
                     className="bg-background"
                   />
                 </div>
@@ -54,8 +97,12 @@ export function ContactSection() {
                   </label>
                   <Input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="email@esempio.com"
                     required
+                    maxLength={255}
                     className="bg-background"
                   />
                 </div>
@@ -68,7 +115,11 @@ export function ContactSection() {
                   </label>
                   <Input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
                     placeholder="+39 123 456 7890"
+                    maxLength={30}
                     className="bg-background"
                   />
                 </div>
@@ -78,7 +129,11 @@ export function ContactSection() {
                   </label>
                   <Input
                     type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
                     placeholder="Nome della tua azienda"
+                    maxLength={100}
                     className="bg-background"
                   />
                 </div>
@@ -89,9 +144,13 @@ export function ContactSection() {
                   Messaggio
                 </label>
                 <Textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Come possiamo aiutarti?"
                   rows={5}
                   required
+                  maxLength={5000}
                   className="bg-background resize-none"
                 />
               </div>
