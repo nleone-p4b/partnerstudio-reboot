@@ -41,16 +41,6 @@ export function PortfolioSection() {
   return (
     <section id="portfolio" className="section-padding bg-gradient-section">
       <div className="container-wide mx-auto">
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
-            Portfolio & Pubblicazioni
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance">
-            Progetti, investimenti e thought leadership
-          </h2>
-        </div>
-
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Publications */}
           <div>

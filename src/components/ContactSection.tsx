@@ -28,19 +28,6 @@ export function ContactSection() {
   return (
     <section id="contact" className="section-padding bg-gradient-section">
       <div className="container-wide mx-auto">
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
-            Contatti
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance">
-            Iniziamo una conversazione
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Pronto a trasformare la tua azienda? Contattaci per una consulenza gratuita.
-          </p>
-        </div>
-
         {/* Contact Form - Full Width */}
         <div className="max-w-4xl mx-auto">
           <div className="card-elevated p-8 md:p-10">

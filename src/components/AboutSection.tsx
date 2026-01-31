@@ -61,43 +61,6 @@ export function AboutSection() {
           ))}
         </div>
 
-        {/* Story Section */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h3 className="font-display text-2xl md:text-3xl gold-underline pb-4">
-              La Nostra Storia
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              NL Partner Studio nasce dalla volontà di portare il meglio della consulenza 
-              strategica e dell'innovazione tecnologica alle imprese italiane ed europee.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Dal 2019, con la co-fondazione di Minnovo.it, abbiamo sviluppato una profonda 
-              esperienza nella Business Transformation, lavorando con PMI, industria e servizi 
-              su efficienza operativa, qualità decisionale e scalabilità.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Il nostro approccio unico combina il rigore metodologico derivante da un PhD 
-              in Innovation Management con l'esperienza pratica maturata in varie industries, 
-              con un focus particolare in ambito pharma/healthcare.
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="aspect-[4/3] bg-muted rounded-lg overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
-                <div className="text-center p-8">
-                  <Lightbulb className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="font-display text-2xl text-foreground">
-                    Innovation Meets Strategy
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/10 rounded-lg -z-10" />
-          </div>
-        </div>
       </div>
     </section>
   );

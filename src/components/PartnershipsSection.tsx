@@ -24,20 +24,6 @@ export function PartnershipsSection() {
   return (
     <section id="partnerships" className="section-padding bg-background">
       <div className="container-wide mx-auto">
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-4">
-            Partnership & Network
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6 text-balance">
-            Collaborazioni di eccellenza
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Collaboriamo con aziende leader e istituzioni accademiche 
-            prestigiose in tutto il mondo.
-          </p>
-        </div>
-
         {/* Corporate Partners */}
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-8">
