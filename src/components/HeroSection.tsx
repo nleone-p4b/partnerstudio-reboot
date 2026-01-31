@@ -1,11 +1,5 @@
-import { ArrowRight, Sparkles, TrendingUp, Users } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const stats = [
-  { value: '50+', label: 'Progetti', icon: Sparkles },
-  { value: '4', label: 'Università', icon: Users },
-  { value: '10+', label: 'Paesi', icon: TrendingUp },
-];
 
 export function HeroSection() {
   return (
@@ -65,26 +59,6 @@ export function HeroSection() {
               <Button variant="hero-outline" asChild>
                 <a href="#contact">Contattaci</a>
               </Button>
-            </div>
-
-            {/* Stats */}
-            <div
-              className="flex flex-wrap gap-8 pt-8 border-t border-border/50 animate-fade-up"
-              style={{ animationDelay: '0.4s' }}
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <stat.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-display text-2xl md:text-3xl font-semibold text-foreground">
-                      {stat.value}
-                    </p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
