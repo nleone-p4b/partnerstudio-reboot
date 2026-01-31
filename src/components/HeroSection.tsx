@@ -37,13 +37,19 @@ export function HeroSection() {
             </h1>
 
             {/* Description */}
-            <p
-              className="font-body text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed animate-fade-up"
+            <div
+              className="space-y-3 animate-fade-up"
               style={{ animationDelay: '0.2s' }}
             >
-              Consulenza strategica, formazione accademica e soluzioni AI per trasformare 
-              le sfide operative in opportunità di crescita e innovazione.
-            </p>
+              <p className="font-body text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+                Consulenza strategica, formazione accademica e soluzioni AI per trasformare 
+                le sfide operative in opportunità di crescita e innovazione.
+              </p>
+              <p className="font-body text-base md:text-lg text-foreground/80 max-w-xl leading-relaxed">
+                <span className="font-medium">Siamo specializzati in:</span> Innovazione, Sostenibilità, Gestione strategica; 
+                nei settori <span className="text-primary font-medium">Pharma, Healthcare, Digital, Technology</span>.
+              </p>
+            </div>
 
             {/* CTAs */}
             <div
