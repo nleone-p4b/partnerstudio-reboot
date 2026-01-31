@@ -25,7 +25,7 @@ const highlights = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="section-padding bg-gradient-section">
+    <section id="about" className="px-4 pt-6 pb-10 md:px-8 md:pt-8 md:pb-14 lg:px-16 lg:pt-10 lg:pb-20 bg-gradient-section">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">
