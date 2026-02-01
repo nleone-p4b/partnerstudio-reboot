@@ -19,8 +19,8 @@ const services = [
   {
     icon: Target,
     title: 'Consulenza Strategica',
-    description: 'Vision & strategy design, performance management con KPI personalizzati. Trasformiamo le sfide in opportunità di crescita.',
-    features: ['Vision & strategy', 'Performance management', 'KPI design'],
+    description: 'Vision & strategy design, performance management con KPI personalizzati. Supporto nella strutturazione di partecipazione a bandi e rendicontazioni.',
+    features: ['Vision & strategy', 'Bandi e rendicontazioni', 'KPI design'],
   },
   {
     icon: LineChart,
