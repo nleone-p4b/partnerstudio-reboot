@@ -1,19 +1,54 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Eyebrow, openChat } from './studio/Primitives';
-import { Constellation } from './studio/Constellation';
+import { Helix } from './studio/Helix';
+import { SectorStage } from './studio/SectorStage';
 
-const PhysicsPile = lazy(() => import('./studio/PhysicsPile'));
+const Amphora = lazy(() => import('./studio/Amphora'));
 
-type Props = { ready?: boolean; sector: number | null; onSector: (index: number | null) => void; onOpenSectors: () => void };
+type Props = { sector: number | null; onSector: (index: number | null) => void; onOpenSectors: () => void };
 
-export function HeroSection({ ready = true, sector, onSector, onOpenSectors }: Props) {
+export function HeroSection({ sector, onSector, onOpenSectors }: Props) {
+  const [pinned, setPinned] = useState(false);
+  const closeTimer = useRef<number>();
+
+  const show = (index: number | null) => {
+    window.clearTimeout(closeTimer.current);
+    if (index === null) {
+      if (pinned) return;
+      // Piccolo ritardo: muovendo il cursore dallo strato alla lista si passa
+      // per lo spazio vuoto in mezzo, e senza attesa la lista sparirebbe.
+      closeTimer.current = window.setTimeout(() => onSector(null), 220);
+      return;
+    }
+    onSector(index);
+  };
+
+  const pin = (index: number) => {
+    window.clearTimeout(closeTimer.current);
+    setPinned(true);
+    onSector(index);
+  };
+
+  const close = () => {
+    window.clearTimeout(closeTimer.current);
+    setPinned(false);
+    onSector(null);
+  };
+
   return <section className="studio-hero" aria-label="NL Partner Studio">
     <Eyebrow>Strategic Advisory &amp; Growth Partnership</Eyebrow>
     <div className="hero-grid">
-      <Constellation selected={sector} onSelect={onSector}/>
-      <Suspense fallback={<div className="physics-area"/>}><PhysicsPile ready={ready}/></Suspense>
+      <Helix active={sector} onActive={show} pinned={pinned} onPin={pin}/>
+      <SectorStage
+        index={sector}
+        pinned={pinned}
+        onClose={close}
+        onKeep={() => window.clearTimeout(closeTimer.current)}
+        onRelease={() => show(null)}
+      />
+      <Suspense fallback={<div className="amphora"/>}><Amphora/></Suspense>
     </div>
     <div className="hero-actions">
       <Button className="studio-button" onClick={openChat}>Contattaci <ArrowUpRight/></Button>

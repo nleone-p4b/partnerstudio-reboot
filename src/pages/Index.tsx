@@ -34,7 +34,7 @@ const Index = () => {
     <AmbientBackground/>
     <Header introActive={intro} onOpenAbout={() => setAbout(true)} onOpenSectors={() => setSectorList(true)} onOpenPartners={() => setPartners(true)}/>
     <main aria-label="Contenuto principale">
-      <HeroSection ready={!intro} sector={sector} onSector={setSector} onOpenSectors={() => setSectorList(true)}/>
+      <HeroSection sector={sector} onSector={setSector} onOpenSectors={() => setSectorList(true)}/>
     </main>
     <AboutDialog open={about} onOpenChange={setAbout}/>
     <SectorsDialog open={sectorList} onOpenChange={setSectorList} onSelect={setSector}/>
