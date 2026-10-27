@@ -3,7 +3,7 @@ import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { ContactChat } from '../components/studio/ContactChat';
 vi.mock('@/integrations/supabase/client', () => ({supabase:{functions:{invoke:vi.fn()}}}));
 describe('Chat dismissal', () => {
- beforeEach(() => {sessionStorage.clear();vi.useFakeTimers();});
+ beforeEach(() => {sessionStorage.clear();Element.prototype.scrollTo=vi.fn();vi.useFakeTimers();});
  afterEach(() => {vi.useRealTimers();});
  it('does not reopen on the automatic timer after manually opening and closing', () => {
   render(<ContactChat ready/>);

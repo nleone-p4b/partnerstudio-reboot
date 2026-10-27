@@ -14,11 +14,12 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
       let width = el.clientWidth, height = el.clientHeight;
       const chips = Array.from(el.querySelectorAll<HTMLElement>('.physics-chip'));
       const bodies = chips.map((chip, i) => {
-        const body = Bodies.rectangle(width * (i % 2 ? .72 : .28), 65, chip.offsetWidth, chip.offsetHeight, { chamfer: { radius: 23 }, restitution: 0.44, friction: 0.35, frictionAir: 0.018, angle: (i % 2 ? 1 : -1) * .18, isStatic: true });
+        const body = Bodies.rectangle(width * (i % 2 ? .72 : .28), 65, chip.offsetWidth, chip.offsetHeight, { chamfer: { radius: 23 }, restitution: 0.44, friction: 0.35, frictionAir: 0.018, angle: (i % 2 ? 1 : -1) * .18 });
         return body;
       });
       const walls = () => [Bodies.rectangle(width/2,-30,width+100,60,{isStatic:true}), Bodies.rectangle(width/2,height+30,width+100,60,{isStatic:true}), Bodies.rectangle(-30,height/2,60,height*4,{isStatic:true}), Bodies.rectangle(width+30,height/2,60,height*4,{isStatic:true})];
-      let boundaries = walls(); Composite.add(engine.world, [...bodies, ...boundaries]);
+      let boundaries = walls(); Composite.add(engine.world, boundaries);
+      const released = new Set<number>();
       const mouse = Mouse.create(el); const constraint = MouseConstraint.create(engine, { mouse, constraint: { stiffness: 0.18, render: { visible: false } } }); Composite.add(engine.world, constraint);
       // The scene is draggable, but the mouse wheel must still scroll the page.
       const wheelHandler = (mouse as unknown as { mousewheel?: EventListener }).mousewheel;
@@ -31,8 +32,8 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
         if (visible && !document.hidden) {
           Engine.update(engine, Math.min(time-last || 16.66, 33));
           bodies.forEach((body, i) => {
-            if (body.isStatic && time - start < i * 230) { chips[i].style.opacity = '0'; return; }
-            if (body.isStatic) Body.setStatic(body, false);
+            if (!released.has(i) && time - start < i * 230) { chips[i].style.opacity = '0'; return; }
+            if (!released.has(i)) { Composite.add(engine.world, body); released.add(i); }
             const pose = containedPose(body.position.x, body.position.y, body.angle, chips[i].offsetWidth, chips[i].offsetHeight, width, height);
             if (pose.angle !== body.angle) { Body.setAngle(body, pose.angle); Body.setAngularVelocity(body, 0); }
             if (pose.x !== body.position.x || pose.y !== body.position.y) { Body.setPosition(body, pose); Body.setVelocity(body, {x:body.velocity.x*.5,y:body.velocity.y*.5}); }
