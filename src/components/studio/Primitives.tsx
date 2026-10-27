@@ -1,4 +1,4 @@
-import { useRef, type ReactNode, type CSSProperties } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -25,16 +25,7 @@ export function Logo({ light = false, animated = false, shared = false }: { ligh
   </motion.div>;
 }
 export function Eyebrow({ children }: { children: ReactNode }) { return <span className="eyebrow">{children}</span>; }
-export function SplitTitle({ first, second, hero = false, id }: { first: string; second: string; hero?: boolean; id?: string }) {
-  const reduced = useReducedMotion(); const Tag = hero ? motion.h1 : motion.h2;
-  return <Tag id={id} className={cn('split-title', hero && 'hero-title')} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} transition={{ staggerChildren: reduced ? 0 : 0.045 }}>{[first, second].map((part, p) => <span key={p} className={p ? 'title-gold' : undefined}>{part.split(' ').map((word, i) => <span className="word-mask" key={i}><motion.span variants={{ hidden: { opacity: 0, y: reduced ? 0 : '105%' }, visible: { opacity: 1, y: 0 } }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>{word}</motion.span></span>)}{' '}</span>)}</Tag>;
-}
-export function Reveal({ children, index = 0, className }: { children: ReactNode; index?: number; className?: string }) {
-  const reduced = useReducedMotion();
-  return <motion.div className={className} initial={{ opacity: 0, x: reduced ? 0 : index % 2 ? 120 : -120, rotate: reduced ? 0 : index % 2 ? 4 : -4 }} whileInView={{ opacity: 1, x: 0, rotate: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ type: 'spring', stiffness: 120, damping: 18, delay: index * 0.08 }}>{children}</motion.div>;
-}
 export function AmbientBackground() {
-  const ref = useRef<HTMLDivElement>(null); const reduced = useReducedMotion();
-  return <div className="ambient-background" ref={ref} aria-hidden="true" onPointerMove={undefined}><div className="ambient-blob blob-one"/><div className="ambient-blob blob-two"/><div className="ambient-blob blob-three"/></div>;
+  return <div className="ambient-background" aria-hidden="true"><div className="ambient-blob blob-one"/><div className="ambient-blob blob-two"/><div className="ambient-blob blob-three"/></div>;
 }
 export function openChat() { window.dispatchEvent(new Event('studio:open-chat')); }
