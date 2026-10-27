@@ -1,5 +1,6 @@
-# Homepage redesign
-- [ ] Visual identity, shared logo intro, liquid glass, animated homepage and physics
-- [ ] Partner orbits and mobile accordions
-- [ ] Conversational contact chat using existing email delivery
-- [ ] Preserve SEO, verify desktop/mobile and contact flow
+# Horizontal homepage revision
+- [ ] Hero constellation and contained physics with ±25° rotation
+- [ ] Compact About and Services conveyor belts with drag, arrows and detail panels
+- [ ] Scroll-driven horizontal movement and gold progress
+- [ ] Chat dismissal and real email submission verification
+- [ ] Check 1440px, 1024px and 375px, tests and preview errors; preserve SEO
