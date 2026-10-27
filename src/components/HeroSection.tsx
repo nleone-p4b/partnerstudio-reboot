@@ -5,7 +5,7 @@ import { Eyebrow, openChat } from './studio/Primitives';
 import { Helix } from './studio/Helix';
 import { SectorStage } from './studio/SectorStage';
 
-const Amphora = lazy(() => import('./studio/Amphora'));
+const Expertise = lazy(() => import('./studio/Expertise'));
 
 type Props = { sector: number | null; onSector: (index: number | null) => void; onOpenSectors: () => void };
 
@@ -48,7 +48,7 @@ export function HeroSection({ sector, onSector, onOpenSectors }: Props) {
         onKeep={() => window.clearTimeout(closeTimer.current)}
         onRelease={() => show(null)}
       />
-      <Suspense fallback={<div className="amphora"/>}><Amphora/></Suspense>
+      <Suspense fallback={<div className="expertise"/>}><Expertise/></Suspense>
     </div>
     <div className="hero-actions">
       <Button className="studio-button" onClick={openChat}>Contattaci <ArrowUpRight/></Button>
