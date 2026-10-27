@@ -1,30 +1,7 @@
-import minnovo from '@/assets/partners/minnovo.png';
-import binance from '@/assets/partners/binance.png';
-import torVergata from '@/assets/partners/tor-vergata.png';
-import taylora from '@/assets/partners/taylora.png';
-import centoform from '@/assets/partners/centoform.png';
-import aox from '@/assets/partners/aox.png';
-import immobiliare from '@/assets/partners/immobiliallasta.png';
-import opificio from '@/assets/partners/opificio-alkemico.png';
-import nuvola from '@/assets/partners/nuvola-zero.png';
-import daily from '@/assets/partners/daily-cage.png';
 
-export const brandLogos: Record<string, string> = {
-  'Università di Roma Tor Vergata': torVergata,
-  'Master EMCM Tor Vergata': torVergata,
-  'Minnovo Academy': minnovo,
-  Minnovo: minnovo,
-  Binance: binance,
-  Taylora: taylora,
-  Centoform: centoform,
-  'AOX Cosmeceuticals': aox,
-  "Il futuro dell'immobiliare": immobiliare,
-  'Opificio Alkemico': opificio,
-  'Nuvola Zero': nuvola,
-  'The Daily Cage': daily,
-};
-
-export type Sector = { name: string; hint: string; services: string[]; brands: string[] };
+export type Partner = { name: string; url?: string };
+// `services` e' il testo esteso della modale Servizi, `keywords` la riga breve dentro la sfera.
+export type Sector = { name: string; hint: string; services: string[]; keywords: string[]; partners: Partner[] };
 
 export const sectors: Sector[] = [
   {
@@ -36,7 +13,20 @@ export const sectors: Sector[] = [
       'Progettazione di percorsi e certificazioni',
       'Workshop executive e facilitazione',
     ],
-    brands: ['Università di Roma Tor Vergata', 'Master EMCM Tor Vergata', 'ESCP Business School', 'PSB Paris School of Business', 'Singapore University', 'Minnovo Academy', 'Centoform', 'Taylora', 'AIFIA', 'CEPAS Bureau Veritas', 'Talent Garden'],
+    keywords: ['Università', 'Aziende', 'Certificazioni'],
+    partners: [
+      { name: 'Università di Roma Tor Vergata', url: 'https://web.uniroma2.it/it' },
+      { name: 'Master EMCM Tor Vergata', url: 'https://economia.uniroma2.it/commedia' },
+      { name: 'ESCP Business School', url: 'https://escp.eu/' },
+      { name: 'PSB Paris School of Business', url: 'https://www.psbedu.paris/fr' },
+      { name: 'Singapore University' },
+      { name: 'Minnovo Academy', url: 'https://minnovo.academy/' },
+      { name: 'Centoform', url: 'https://centoform.it/' },
+      { name: 'Taylora', url: 'https://discover.taylora.com/' },
+      { name: 'AIFIA', url: 'https://www.aifia.it/' },
+      { name: 'CEPAS Bureau Veritas', url: 'https://cepas.bureauveritas.it/' },
+      { name: 'Talent Garden', url: 'https://talentgarden.com/en' },
+    ],
   },
   {
     name: 'HEALTHCARE',
@@ -47,7 +37,19 @@ export const sectors: Sector[] = [
       'Bandi, PNRR e rendicontazione',
       'Patient e caregiver experience',
     ],
-    brands: ['Pangenic (P4B.Ai)', 'More – Laboratorio di Organizzazione', 'Ministero della Salute (Progetto Vita)', 'FIASO', 'FISM', 'PwC', 'ARNAS Civico Palermo', 'EBO', 'Policlinico di Bari', 'AOX Cosmeceuticals'],
+    keywords: ['Processi', 'AI', 'Bandi'],
+    partners: [
+      { name: 'Pangenic (P4B.Ai)' },
+      { name: 'More – Laboratorio di Organizzazione' },
+      { name: 'Ministero della Salute (Progetto Vita)', url: 'https://www.salute.gov.it/' },
+      { name: 'FIASO', url: 'https://www.fiaso.it/' },
+      { name: 'FISM', url: 'https://fism.it/' },
+      { name: 'PwC', url: 'https://www.pwc.com/it/it.html' },
+      { name: 'ARNAS Civico Palermo', url: 'https://www.arnascivico.it/' },
+      { name: 'EBO', url: 'https://www.ebo.ai' },
+      { name: 'Policlinico di Bari', url: 'https://www.sanita.puglia.it/web/policlinico-di-bari-ospedale-giovanni-xxiii' },
+      { name: 'AOX Cosmeceuticals', url: 'https://aox.com' },
+    ],
   },
   {
     name: 'COMMUNICATION',
@@ -58,7 +60,21 @@ export const sectors: Sector[] = [
       'Advertising e funnel di acquisizione',
       'Eventi, community e partnership',
     ],
-    brands: ['Minnovo', 'Webion', 'The Crowd', 'YouMark', 'Rome Future Week', "L'Espresso – Setteidee", 'Binance', 'Opificio Alkemico', "Il futuro dell'immobiliare", 'Nuvola Zero', 'The Daily Cage', 'Urban Fitness'],
+    keywords: ['Brand', 'Content', 'Eventi'],
+    partners: [
+      { name: 'Minnovo', url: 'https://minnovo.it' },
+      { name: 'Webion', url: 'https://webion.com' },
+      { name: 'The Crowd', url: 'https://www.thecrowdfunding.it' },
+      { name: 'YouMark', url: 'https://youmark.it' },
+      { name: 'Rome Future Week', url: 'https://romefutureweek.it' },
+      { name: "L'Espresso – Setteidee", url: 'https://www.setteidee.com' },
+      { name: 'Binance', url: 'https://www.binance.com' },
+      { name: 'Opificio Alkemico', url: 'https://opificioalkemico.com' },
+      { name: "Il futuro dell'immobiliare" },
+      { name: 'Nuvola Zero', url: 'https://nuvolazero.it' },
+      { name: 'The Daily Cage', url: 'https://thedailycage.it' },
+      { name: 'Urban Fitness', url: 'https://www.urbanfitness.it' },
+    ],
   },
 ];
 

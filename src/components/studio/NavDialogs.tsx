@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import { brandLogos, highlights, sectors } from './network';
+import { highlights, sectors } from './network';
 import { openChat } from './Primitives';
 
 type PanelProps = { open: boolean; onOpenChange: (open: boolean) => void };
@@ -41,10 +41,11 @@ export function PartnersDialog({ open, onOpenChange }: PanelProps) {
     <DialogDescription>Istituzioni, aziende e brand con cui lavoriamo.</DialogDescription>
     <div className="dialog-scroll">{sectors.map(sector => <div className="dialog-group" key={sector.name}>
       <h3>{sector.name}</h3>
-      <div className="brand-grid">{sector.brands.map(brand => <div className="brand-chip" key={brand}>
-        {brandLogos[brand] && <img src={brandLogos[brand]} alt=""/>}
-        <span>{brand}</span>
-      </div>)}</div>
+      <ul className="partner-list">{sector.partners.map(partner => <li key={partner.name}>
+        {partner.url
+          ? <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}</a>
+          : <span>{partner.name}</span>}
+      </li>)}</ul>
     </div>)}</div>
   </DialogContent></Dialog>;
 }
