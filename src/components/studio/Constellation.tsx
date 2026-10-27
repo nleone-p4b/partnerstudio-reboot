@@ -117,7 +117,15 @@ function useCompact() {
 function SectorPanel({ index, onClose }: { index: number; onClose: () => void }) {
   const sector = sectors[index];
   const compact = useCompact();
-  const partners = [...sector.partners].sort((a, b) => a.name.localeCompare(b.name, 'it'));
+  // Prima i rapporti diretti, poi i gruppi per provenienza: un brand incontrato
+  // attraverso un master non e' un cliente e non va presentato come tale.
+  const groups: { label?: string; items: typeof sector.partners }[] = [];
+  for (const partner of [...sector.partners].sort((a, b) => a.name.localeCompare(b.name, 'it'))) {
+    const existing = groups.find(group => group.label === partner.via);
+    if (existing) existing.items.push(partner);
+    else groups.push({ label: partner.via, items: [partner] });
+  }
+  groups.sort((a, b) => (a.label ? 1 : 0) - (b.label ? 1 : 0));
 
   useEffect(() => {
     const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
@@ -147,11 +155,14 @@ function SectorPanel({ index, onClose }: { index: number; onClose: () => void })
         <span className="sphere-index">{String(index + 1).padStart(2, '0')}</span>
         <h2>{sector.name}</h2>
         <p className="panel-keywords">{sector.keywords.join(' · ')}</p>
-        <ul className="panel-partners">{partners.map(partner => <li key={partner.name}>
-          {partner.url
-            ? <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}<ArrowUpRight aria-hidden="true"/></a>
-            : <span>{partner.name}</span>}
-        </li>)}</ul>
+        <div className="panel-partners">{groups.map((group, g) => <div className="panel-group" key={group.label ?? 'diretti'}>
+          {(group.label || g > 0) && <p className="panel-group-label">{group.label ?? 'Rapporti diretti'}</p>}
+          <ul>{group.items.map(partner => <li key={partner.name}>
+            {partner.url
+              ? <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}<ArrowUpRight aria-hidden="true"/></a>
+              : <span>{partner.name}</span>}
+          </li>)}</ul>
+        </div>)}</div>
           <Button className="studio-button panel-cta" onClick={openChat}>Parliamone <ArrowUpRight/></Button>
         </motion.div>
       </motion.div>
