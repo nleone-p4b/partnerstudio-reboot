@@ -9,7 +9,8 @@ export function serviceAnswer(question:string): string | null {
  const q=question.toLowerCase();
  if(/prezz|cost|quanto|tariff/.test(q))return 'La proposta viene definita in base agli obiettivi e alle esigenze del progetto. Nicola potrà parlarne direttamente con te.';
  let index=1;
- if(/ai|intelligenza|process/.test(q))index=0;
+ if(/bandi|bando|rendicont/.test(q))index=1;
+  else if(/\bai\b|intelligenza|process/.test(q))index=0;
  else if(/formaz|cors|univers|workshop/.test(q))index=4;
  else if(/marketing|communication|comunicaz|social/.test(q))index=5;
  else if(/ricerca|mercato/.test(q))index=6;

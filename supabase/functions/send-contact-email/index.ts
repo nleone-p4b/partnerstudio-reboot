@@ -166,7 +166,10 @@ const handler = async (req: Request): Promise<Response> => {
       reply_to: trimmedEmail,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    if (emailResponse.error || !emailResponse.data?.id) {
+      throw new Error("Invio email non riuscito. Riprova tra un minuto.");
+    }
+    console.log("Contact email accepted by provider");
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
