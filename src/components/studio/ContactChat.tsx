@@ -13,13 +13,13 @@ function prompt(step:number,lead:Lead) {
 }
 export function ContactChat({ ready }: { ready:boolean }) {
  const reduced=useReducedMotion(); const [open,setOpen]=useState(false);const [seen,setSeen]=useState(sessionStorage.getItem('studio-chat-seen')==='yes');const [messages,setMessages]=useState<Message[]>([]);const [step,setStep]=useState(0);const [lead,setLead]=useState<Lead>(emptyLead);const [input,setInput]=useState('');const [typing,setTyping]=useState(false);const [sending,setSending]=useState(false);const [sent,setSent]=useState(false);const [error,setError]=useState('');
- const started=useRef(false);const timer=useRef<number>();const scroll=useRef<HTMLDivElement>(null);const inputRef=useRef<HTMLInputElement>(null);
+ const autoTimer=useRef<number>();const started=useRef(false);const timer=useRef<number>();const scroll=useRef<HTMLDivElement>(null);const inputRef=useRef<HTMLInputElement>(null);
  const assistant=(text:string) => {setTyping(true);window.clearTimeout(timer.current);timer.current=window.setTimeout(()=>{setMessages(prev=>[...prev,{role:'assistant',text}]);setTyping(false);},reduced?0:650);};
- useEffect(()=>{const show=()=>{setOpen(true);setSeen(true);sessionStorage.setItem('studio-chat-seen','yes');};window.addEventListener('studio:open-chat',show);let auto:number|undefined;if(ready && sessionStorage.getItem('studio-chat-dismissed')!=='yes') auto=window.setTimeout(show,4000);return ()=>{window.removeEventListener('studio:open-chat',show);window.clearTimeout(auto);};},[ready]);
+ useEffect(()=>{const show=()=>{window.clearTimeout(autoTimer.current);setOpen(true);setSeen(true);sessionStorage.setItem('studio-chat-seen','yes');};window.addEventListener('studio:open-chat',show);if(ready && sessionStorage.getItem('studio-chat-dismissed')!=='yes') autoTimer.current=window.setTimeout(show,4000);return ()=>{window.removeEventListener('studio:open-chat',show);window.clearTimeout(autoTimer.current);};},[ready]);
  useEffect(()=>{if(open && !started.current){started.current=true;assistant(greeting);}},[open]);
  useEffect(()=>{scroll.current?.scrollTo({top:scroll.current.scrollHeight,behavior:reduced?'auto':'smooth'});},[messages,typing,step,open]);
  useEffect(()=>()=>window.clearTimeout(timer.current),[]);
- const close=()=>{setOpen(false);sessionStorage.setItem('studio-chat-dismissed','yes');};
+ const close=()=>{window.clearTimeout(autoTimer.current);setOpen(false);sessionStorage.setItem('studio-chat-dismissed','yes');};
  const respond=(value:string)=>{
   const text=value.trim();if(!text||typing||sending||sent)return;setError('');
   const answer=serviceAnswer(text);if(answer){setMessages(prev=>[...prev,{role:'user',text}]);setInput('');assistant(`${answer}\n\n${prompt(step,lead)}`);return;}
