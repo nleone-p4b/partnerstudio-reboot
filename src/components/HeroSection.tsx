@@ -1,9 +1,24 @@
 import { lazy, Suspense } from 'react';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Eyebrow, openChat } from './studio/Primitives';
-import { PartnersLogoStrip } from './PartnersLogoStrip';
+import { Constellation } from './studio/Constellation';
+
 const PhysicsPile = lazy(() => import('./studio/PhysicsPile'));
-export function HeroSection({ ready = true }: { ready?: boolean }) {
- return <section className="studio-hero" aria-label="NL Partner Studio"><Eyebrow>Strategic Advisory & Growth Partnership</Eyebrow><div className="hero-grid"><PartnersLogoStrip/><Suspense fallback={<div className="physics-area"/>}><PhysicsPile ready={ready}/></Suspense></div><div className="hero-actions"><Button className="studio-button" asChild><a href="#services">Scopri i Servizi <ArrowUpRight/></a></Button><Button className="studio-button glass-button" variant="outline" onClick={openChat}>Contattaci <ArrowUpRight/></Button><a className="hero-scroll" href="#about" aria-label="Chi siamo"><ArrowDown/></a></div></section>;
+
+type Props = { ready?: boolean; sector: number | null; onSector: (index: number | null) => void; onOpenSectors: () => void };
+
+export function HeroSection({ ready = true, sector, onSector, onOpenSectors }: Props) {
+  return <section className="studio-hero" aria-label="NL Partner Studio">
+    <Eyebrow>Strategic Advisory &amp; Growth Partnership</Eyebrow>
+    <div className="hero-grid">
+      <Constellation selected={sector} onSelect={onSector}/>
+      <Suspense fallback={<div className="physics-area"/>}><PhysicsPile ready={ready}/></Suspense>
+    </div>
+    <div className="hero-actions">
+      <Button className="studio-button" onClick={openChat}>Contattaci <ArrowUpRight/></Button>
+      <Button className="studio-button glass-button" variant="outline" onClick={onOpenSectors}>Scopri i Servizi <ArrowUpRight/></Button>
+      <p className="hero-legal">© {new Date().getFullYear()} NL Partner Studio · P.IVA 04886240615</p>
+    </div>
+  </section>;
 }

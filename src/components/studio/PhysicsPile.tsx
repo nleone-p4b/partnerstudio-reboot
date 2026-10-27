@@ -1,7 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { containedPose } from './physicsRules';
-const words = ['Strategia', 'AI', 'Formazione', 'Healthcare', 'Communication', 'Bandi', 'KPI', 'Innovazione', 'Pharma', 'Digital', 'Growth'];
+const pills = [
+  { word: 'Strategia', tone: 'chip-black' },
+  { word: 'AI', tone: 'chip-gold' },
+  { word: 'Formazione', tone: 'liquid-glass' },
+  { word: 'Healthcare', tone: 'liquid-glass' },
+  { word: 'Communication', tone: 'chip-black' },
+  { word: 'Growth', tone: 'chip-gold' },
+];
 export default function PhysicsPile({ ready }: { ready: boolean }) {
   const container = useRef<HTMLDivElement>(null); const reduced = useReducedMotion();
   useEffect(() => {
@@ -10,11 +17,13 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
     import('matter-js').then(({ default: Matter }) => {
       const el = container.current; if (!el || disposed) return;
       const { Engine, Bodies, Body, Composite, Mouse, MouseConstraint, Events } = Matter;
-      const engine = Engine.create({ gravity: { x: 0, y: 1.2 } });
+      const engine = Engine.create({ gravity: { x: 0, y: 1.1 }, positionIterations: 12, velocityIterations: 8, constraintIterations: 4 });
       let width = el.clientWidth, height = el.clientHeight;
       const chips = Array.from(el.querySelectorAll<HTMLElement>('.physics-chip'));
       const bodies = chips.map((chip, i) => {
-        const body = Bodies.rectangle(width * (i % 2 ? .72 : .28), 65, chip.offsetWidth, chip.offsetHeight, { chamfer: { radius: 23 }, restitution: 0.44, friction: 0.35, frictionAir: 0.018, angle: (i % 2 ? 1 : -1) * .18 });
+        const body = Bodies.rectangle(width / 2 + (i % 2 ? 14 : -14), 54, chip.offsetWidth, chip.offsetHeight, { chamfer: { radius: 18 }, restitution: 0.1, friction: 0.6, frictionStatic: 1, frictionAir: 0.022, slop: 0.01 });
+        // Le pillole restano orizzontali: senza rotolamento si impilano invece di allinearsi e sovrapporsi.
+        Body.setInertia(body, Infinity);
         return body;
       });
       const walls = () => [Bodies.rectangle(width/2,-30,width+100,60,{isStatic:true}), Bodies.rectangle(width/2,height+30,width+100,60,{isStatic:true}), Bodies.rectangle(-30,height/2,60,height*4,{isStatic:true}), Bodies.rectangle(width+30,height/2,60,height*4,{isStatic:true})];
@@ -32,7 +41,7 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
         if (visible && !document.hidden) {
           Engine.update(engine, Math.min(time-last || 16.66, 33));
           bodies.forEach((body, i) => {
-            if (!released.has(i) && time - start < i * 230) { chips[i].style.opacity = '0'; return; }
+            if (!released.has(i) && time - start < i * 260) { chips[i].style.opacity = '0'; return; }
             if (!released.has(i)) { Composite.add(engine.world, body); released.add(i); }
             const pose = containedPose(body.position.x, body.position.y, body.angle, chips[i].offsetWidth, chips[i].offsetHeight, width, height);
             if (pose.angle !== body.angle) { Body.setAngle(body, pose.angle); Body.setAngularVelocity(body, 0); }
@@ -53,5 +62,5 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
     });
     return () => { disposed = true; cleanup(); };
   }, [ready, reduced]);
-  return <div className={`physics-area ${reduced ? 'physics-static' : ''}`} ref={container} aria-label="Mosaico interattivo delle competenze"><div className="physics-watermark" aria-hidden="true">NL.</div>{words.map((word,i) => <div key={word} className={`physics-chip ${i === 9 ? 'chip-gold' : i % 3 === 0 ? 'chip-black' : 'liquid-glass'}`}>{word}</div>)}<span className="physics-caption">STRATEGY. PEOPLE. POSSIBILITIES.</span></div>;
+  return <div className={`physics-area ${reduced ? 'physics-static' : ''}`} ref={container} aria-label="Mosaico interattivo delle competenze"><div className="physics-watermark" aria-hidden="true">NL.</div>{pills.map(chip => <div key={chip.word} className={`physics-chip ${chip.tone}`}>{chip.word}</div>)}<span className="physics-caption">STRATEGY. PEOPLE. POSSIBILITIES.</span></div>;
 }

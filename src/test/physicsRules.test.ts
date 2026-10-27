@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { containedPose, MAX_CHIP_ANGLE } from '../components/studio/physicsRules';
 describe('Contained hero physics', () => {
-  it('limits rotation to 25 degrees in both directions', () => {
-    expect(MAX_CHIP_ANGLE).toBe(25 * Math.PI / 180);
+  it('limits rotation to 13 degrees in both directions', () => {
+    expect(MAX_CHIP_ANGLE).toBe(13 * Math.PI / 180);
     expect(containedPose(200,200,2,100,40,400,400).angle).toBe(MAX_CHIP_ANGLE);
     expect(containedPose(200,200,-2,100,40,400,400).angle).toBe(-MAX_CHIP_ANGLE);
   });
