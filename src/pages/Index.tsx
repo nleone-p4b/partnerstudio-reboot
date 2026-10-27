@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { LayoutGroup, useReducedMotion } from 'framer-motion';
-import Lenis from 'lenis';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { GlassFilter, AmbientBackground } from '@/components/studio/Primitives';
@@ -18,10 +17,7 @@ const Index = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('chromium-glass', /Chrome|Chromium|Edg/.test(navigator.userAgent));
-    if (reduced) return;
-    const lenis = new Lenis({ autoRaf: true, anchors: true, smoothWheel: true });
-    return () => lenis.destroy();
-  }, [reduced]);
+  }, []);
 
   useEffect(() => {
     if (reduced) return;

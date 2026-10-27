@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Plus, Sparkle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,9 +7,49 @@ import { openChat } from './Primitives';
 
 type Props = { selected: number | null; onSelect: (index: number | null) => void };
 
+type Line = { x1: number; y1: number; x2: number; y2: number };
+const SUN_RADIUS = 48;
+// Le linee finiscono dentro la sfera: il galleggiamento la muove di 7px,
+// quindi l'estremita' resta coperta e il collegamento non si stacca mai.
+const SPHERE_BITE = 10;
+
 export function Constellation({ selected, onSelect }: Props) {
   const reduced = useReducedMotion();
   const open = selected !== null;
+  const field = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [lines, setLines] = useState<Line[]>([]);
+
+  const measure = useCallback(() => {
+    const el = field.current;
+    if (!el) return;
+    const width = el.clientWidth, height = el.clientHeight;
+    if (!width || !height) return;
+    const sunX = width / 2, sunY = height * 0.52;
+    const next = Array.from(el.querySelectorAll<HTMLElement>('.sphere-orbit')).map(orbit => {
+      const cx = orbit.offsetLeft + orbit.offsetWidth / 2;
+      const cy = orbit.offsetTop + orbit.offsetHeight / 2;
+      const radius = orbit.offsetWidth / 2;
+      const dx = cx - sunX, dy = cy - sunY;
+      const length = Math.hypot(dx, dy) || 1;
+      const ux = dx / length, uy = dy / length;
+      return {
+        x1: sunX + ux * SUN_RADIUS, y1: sunY + uy * SUN_RADIUS,
+        x2: cx - ux * (radius - SPHERE_BITE), y2: cy - uy * (radius - SPHERE_BITE),
+      };
+    });
+    setSize({ width, height });
+    setLines(next);
+  }, []);
+
+  useLayoutEffect(() => {
+    measure();
+    const el = field.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [measure]);
 
   useEffect(() => {
     if (!open) return;
@@ -20,10 +60,10 @@ export function Constellation({ selected, onSelect }: Props) {
 
   return <div id="partnerships" className={`constellation ${open ? 'constellation-open' : ''}`}>
     <h1 className="sr-only">NL Partner Studio — Strategic Advisory &amp; Growth Partnership</h1>
-    <div className="constellation-field">
-      <svg className="constellation-lines" viewBox="0 0 700 500" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M350 260L140 125"/><path d="M350 260L560 125"/><path d="M350 260L350 395"/>
-      </svg>
+    <div className="constellation-field" ref={field}>
+      {size.width > 0 && <svg className="constellation-lines" viewBox={`0 0 ${size.width} ${size.height}`} aria-hidden="true">
+        {lines.map((line, i) => <line key={i} x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2}/>)}
+      </svg>}
       {sectors.map((sector, i) => <div className={`sphere-orbit sphere-orbit-${i}`} key={sector.name}>
         <div className="sphere-float">
           {selected !== i && <motion.button
