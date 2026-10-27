@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { containedPose } from './physicsRules';
 const pills = [
@@ -11,8 +11,18 @@ const pills = [
 ];
 export default function PhysicsPile({ ready }: { ready: boolean }) {
   const container = useRef<HTMLDivElement>(null); const reduced = useReducedMotion();
+  // Su telefono la colonna fisica non ha spazio: le pillole restano impilate in
+  // una torre scollegata dal resto. Meglio statiche, e matter-js non si scarica.
+  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width:767px)').matches);
   useEffect(() => {
-    if (!ready || reduced || !container.current) return;
+    const query = window.matchMedia('(max-width:767px)');
+    const update = () => setCompact(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+  const still = reduced || compact;
+  useEffect(() => {
+    if (!ready || still || !container.current) return;
     let disposed = false; let cleanup = () => {};
     import('matter-js').then(({ default: Matter }) => {
       const el = container.current; if (!el || disposed) return;
@@ -61,6 +71,6 @@ export default function PhysicsPile({ ready }: { ready: boolean }) {
       cleanup = () => { cancelAnimationFrame(frame); observer.disconnect(); resize.disconnect(); Mouse.clearSourceEvents(mouse); Events.off(engine, ''); Composite.clear(engine.world, false); Engine.clear(engine); };
     });
     return () => { disposed = true; cleanup(); };
-  }, [ready, reduced]);
-  return <div className={`physics-area ${reduced ? 'physics-static' : ''}`} ref={container} aria-label="Mosaico interattivo delle competenze"><div className="physics-watermark" aria-hidden="true">NL.</div>{pills.map(chip => <div key={chip.word} className={`physics-chip ${chip.tone}`}>{chip.word}</div>)}<span className="physics-caption">STRATEGY. PEOPLE. POSSIBILITIES.</span></div>;
+  }, [ready, still]);
+  return <div className={`physics-area ${still ? 'physics-static' : ''}`} ref={container} aria-label="Mosaico interattivo delle competenze"><div className="physics-watermark" aria-hidden="true">NL.</div>{pills.map(chip => <div key={chip.word} className={`physics-chip ${chip.tone}`}>{chip.word}</div>)}<span className="physics-caption">STRATEGY. PEOPLE. POSSIBILITIES.</span></div>;
 }
