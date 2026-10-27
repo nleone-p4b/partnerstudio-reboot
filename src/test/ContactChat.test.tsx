@@ -2,6 +2,10 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { ContactChat } from '../components/studio/ContactChat';
 vi.mock('@/integrations/supabase/client', () => ({supabase:{functions:{invoke:vi.fn()}}}));
+vi.mock('framer-motion', async importOriginal => {
+ const actual = await importOriginal<typeof import('framer-motion')>();
+ return {...actual, AnimatePresence: ({children}: {children: React.ReactNode}) => children};
+});
 describe('Chat dismissal', () => {
  beforeEach(() => {sessionStorage.clear();Element.prototype.scrollTo=vi.fn();vi.useFakeTimers();});
  afterEach(() => {vi.useRealTimers();});
