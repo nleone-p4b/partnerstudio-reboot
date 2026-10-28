@@ -18,6 +18,11 @@ const Index = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('chromium-glass', /Chrome|Chromium|Edg/.test(navigator.userAgent));
+    // Il blocco dello scroll appartiene alla home, non al documento: sul blog
+    // la pagina deve scorrere.
+    document.documentElement.classList.add('single-screen');
+    document.title = 'NL Partner Studio | Consulenza Strategica, AI & Formazione';
+    return () => document.documentElement.classList.remove('single-screen');
   }, []);
 
   useEffect(() => {
