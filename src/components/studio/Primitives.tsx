@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -27,5 +27,16 @@ export function Logo({ light = false, animated = false, shared = false }: { ligh
 export function Eyebrow({ children }: { children: ReactNode }) { return <span className="eyebrow">{children}</span>; }
 export function AmbientBackground() {
   return <div className="ambient-background" aria-hidden="true"><div className="ambient-blob blob-one"/><div className="ambient-blob blob-two"/><div className="ambient-blob blob-three"/></div>;
+}
+export function useCompact(query = '(max-width:767px)') {
+  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setCompact(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, [query]);
+  return compact;
 }
 export function openChat() { window.dispatchEvent(new Event('studio:open-chat')); }

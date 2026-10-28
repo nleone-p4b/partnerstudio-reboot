@@ -6,6 +6,7 @@ import { GlassFilter, AmbientBackground } from '@/components/studio/Primitives';
 import { Intro, useIntro } from '@/components/studio/Intro';
 import { ContactChat } from '@/components/studio/ContactChat';
 import { AboutDialog, PartnersDialog, SectorsDialog } from '@/components/studio/NavDialogs';
+import { SectorDrawer } from '@/components/studio/SectorDrawer';
 
 const Index = () => {
   const intro = useIntro();
@@ -36,6 +37,7 @@ const Index = () => {
     <main aria-label="Contenuto principale">
       <HeroSection sector={sector} onSector={setSector} onOpenSectors={() => setSectorList(true)}/>
     </main>
+    <SectorDrawer index={sector} onClose={() => setSector(null)}/>
     <AboutDialog open={about} onOpenChange={setAbout}/>
     <SectorsDialog open={sectorList} onOpenChange={setSectorList} onSelect={setSector}/>
     <PartnersDialog open={partners} onOpenChange={setPartners}/>

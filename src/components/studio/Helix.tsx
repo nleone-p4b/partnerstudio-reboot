@@ -5,9 +5,9 @@ import { rungs as computeRungs, strandPath } from './helixGeometry';
 const TURNS = 1.65;
 const BAND = 104;
 
-type Props = { active: number | null; onActive: (index: number | null) => void; pinned: boolean; onPin: (index: number) => void };
+type Props = { active: number | null; onHover: (index: number | null) => void; onOpen: (index: number) => void };
 
-export function Helix({ active, onActive, pinned, onPin }: Props) {
+export function Helix({ active, onHover, onOpen }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const strandA = useRef<SVGPathElement>(null);
   const strandB = useRef<SVGPathElement>(null);
@@ -62,7 +62,7 @@ export function Helix({ active, onActive, pinned, onPin }: Props) {
 
   const rows = computeRungs(sectors.length, 0, BAND, height || 1, TURNS);
 
-  return <div className="helix" ref={wrap} onPointerLeave={() => { if (!pinned) onActive(null); }}>
+  return <div className="helix" ref={wrap} onPointerLeave={() => onHover(null)}>
     <svg className="helix-svg" width={BAND} height={height || 1} viewBox={`0 0 ${BAND} ${height || 1}`} aria-hidden="true">
       <path ref={strandA} className="helix-strand"/>
       <path ref={strandB} className="helix-strand helix-strand-b"/>
@@ -78,9 +78,9 @@ export function Helix({ active, onActive, pinned, onPin }: Props) {
           type="button"
           className={`helix-layer ${active === i ? 'helix-layer-on' : ''}`}
           aria-expanded={active === i}
-          onPointerEnter={() => onActive(i)}
-          onFocus={() => onActive(i)}
-          onClick={() => onPin(i)}
+          onPointerEnter={() => onHover(i)}
+          onFocus={() => onHover(i)}
+          onClick={() => onOpen(i)}
         >
           <span className="helix-index">{String(i + 1).padStart(2, '0')}</span>
           <span className="helix-name">{sector.name}</span>
