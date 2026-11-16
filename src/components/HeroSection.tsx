@@ -15,21 +15,21 @@ export function HeroSection({ sector, onSector, onOpenSectors }: Props) {
   const compact = useCompact();
 
   return <section className={`studio-hero ${compact ? 'hero-compact' : ''}`} aria-label="NL Partner Studio">
-    <Eyebrow>Strategic Advisory &amp; Growth Partnership</Eyebrow>
+    <Eyebrow>GEO · Knowledge Management · App verticali</Eyebrow>
     <div className="hero-grid">
       <Helix active={sector ?? hovered} onHover={setHovered} onOpen={onSector}/>
       <div className="sector-stage">
         <div className="stage-idle">
           <Sparkle aria-hidden="true"/>
-          <h1>Nella nostra orbita</h1>
-          <p>Cinque strati di lavoro. Tocca uno strato per vedere chi c&apos;è dentro.</p>
+          <h1>Se le AI non ti citano, non esisti.</h1>
+          <p>Rendiamo leggibile la conoscenza della tua azienda: per le AI, per le persone, per i prodotti. Tre strati di lavoro, ognuno parte da un workshop. Toccane uno.</p>
         </div>
       </div>
       {!compact && <Suspense fallback={<div className="expertise"/>}><Expertise/></Suspense>}
     </div>
     <div className="hero-actions">
-      <Button className="studio-button" onClick={openChat}>Contattaci <ArrowUpRight/></Button>
-      <Button className="studio-button glass-button" variant="outline" onClick={onOpenSectors}>Scopri i Servizi <ArrowUpRight/></Button>
+      <Button className="studio-button" onClick={openChat}>Prenota un workshop <ArrowUpRight/></Button>
+      <Button className="studio-button glass-button" variant="outline" onClick={onOpenSectors}>I tre workshop <ArrowUpRight/></Button>
       <p className="hero-legal">© {new Date().getFullYear()} NL Partner Studio · P.IVA 04886240615</p>
     </div>
   </section>;

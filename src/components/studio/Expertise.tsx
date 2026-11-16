@@ -105,7 +105,7 @@ export default function Expertise() {
   }, [reduced, box]);
 
   return <div className={`expertise ${reduced ? 'expertise-static' : ''}`} ref={wrap} aria-label="Aree di expertise di NL Partner Studio">
-    <span className="expertise-caption">STRATEGY. PEOPLE. POSSIBILITIES.</span>
+    <span className="expertise-caption">VERBA VOLANT, DATA MANENT.</span>
     {pills.map(pill => <span key={pill.word} className={`expertise-chip ${pill.tone}`}>{pill.word}</span>)}
   </div>;
 }

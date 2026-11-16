@@ -21,7 +21,7 @@ const Index = () => {
     // Il blocco dello scroll appartiene alla home, non al documento: sul blog
     // la pagina deve scorrere.
     document.documentElement.classList.add('single-screen');
-    document.title = 'NL Partner Studio | Consulenza Strategica, AI & Formazione';
+    document.title = 'NL Partner Studio | GEO, Knowledge Management e app verticali';
     return () => document.documentElement.classList.remove('single-screen');
   }, []);
 

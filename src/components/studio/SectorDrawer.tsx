@@ -46,17 +46,6 @@ export function SectorDrawer({ index, onClose }: Props) {
 
 function DrawerBody({ index, onClose }: { index: number; onClose: () => void }) {
   const sector = sectors[index];
-
-  // Prima i rapporti diretti, poi i gruppi per provenienza: un brand incontrato
-  // attraverso un master non e' un cliente e non va presentato come tale.
-  const groups: { label?: string; items: typeof sector.partners }[] = [];
-  for (const partner of [...sector.partners].sort((a, b) => a.name.localeCompare(b.name, 'it'))) {
-    const existing = groups.find(group => group.label === partner.via);
-    if (existing) existing.items.push(partner);
-    else groups.push({ label: partner.via, items: [partner] });
-  }
-  groups.sort((a, b) => (a.label ? 1 : 0) - (b.label ? 1 : 0));
-
   return <>
     <div className="drawer-head">
       <span className="helix-index">{String(index + 1).padStart(2, '0')}</span>
@@ -64,14 +53,22 @@ function DrawerBody({ index, onClose }: { index: number; onClose: () => void }) 
       <p className="panel-keywords">{sector.keywords.join(' · ')}</p>
       <Button variant="ghost" size="icon" className="panel-close" aria-label="Chiudi" onClick={onClose}><X/></Button>
     </div>
-    <div className="panel-partners">{groups.map((group, g) => <div className="panel-group" key={group.label ?? 'diretti'}>
-      {(group.label || g > 0) && <p className="panel-group-label">{group.label ?? 'Rapporti diretti'}</p>}
-      <ul>{group.items.map(partner => <li key={partner.name}>
-        {partner.url
-          ? <a href={partner.url} target="_blank" rel="noopener noreferrer">{partner.name}<ArrowUpRight aria-hidden="true"/></a>
-          : <span>{partner.name}</span>}
-      </li>)}</ul>
-    </div>)}</div>
-    <Button className="studio-button panel-cta" onClick={openChat}>Parliamone <ArrowUpRight/></Button>
+    <div className="panel-partners">
+      <p className="panel-claim">{sector.claim}</p>
+      <div className="panel-group">
+        <p className="panel-group-label">Cosa facciamo</p>
+        <ul className="panel-services">{sector.services.map(item => <li key={item}>{item}</li>)}</ul>
+      </div>
+      <div className="panel-workshop liquid-glass">
+        <p className="panel-group-label">Workshop d&apos;ingresso</p>
+        <strong>«{sector.workshop.title}»</strong>
+        <p>{sector.workshop.text}</p>
+      </div>
+      {sector.proof && <div className="panel-group">
+        <p className="panel-group-label">Fatto da noi</p>
+        <p className="panel-proof">{sector.proof}</p>
+      </div>}
+    </div>
+    <Button className="studio-button panel-cta" onClick={openChat}>Prenota il workshop <ArrowUpRight/></Button>
   </>;
 }

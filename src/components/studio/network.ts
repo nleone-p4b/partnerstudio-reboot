@@ -2,21 +2,57 @@
 // `via` dice da dove arriva la relazione: i brand di un master non sono clienti
 // diretti e nel pannello restano in un gruppo separato, etichettato.
 export type Partner = { name: string; url?: string; via?: string };
-// `services` e' il testo esteso della modale Servizi, `keywords` la riga breve dentro la sfera.
-export type Sector = { name: string; hint: string; services: string[]; keywords: string[]; partners: Partner[] };
+// Le tre linee di lavoro dello studio: sono gli strati dell'elica.
+// `services` e' cosa facciamo, `workshop` e' il punto d'ingresso di ogni linea.
+export type Workshop = { title: string; text: string };
+export type Sector = { name: string; hint: string; claim: string; services: string[]; keywords: string[]; workshop: Workshop; proof?: string };
+export type NetworkGroup = { name: string; partners: Partner[] };
 
 export const sectors: Sector[] = [
   {
-    name: 'FORMAZIONE',
-    hint: 'Docenza e programmi su misura per università e aziende',
+    name: 'GEO',
+    hint: 'Generative Engine Optimization: farsi citare dalle AI',
+    claim: 'Il tuo cliente non cerca più su Google. Chiede a ChatGPT. E l\'AI risponde con chi conosce, non con chi è più bravo.',
     services: [
-      'Corsi universitari e master in innovation management',
-      'Corporate training su AI, digitale e innovazione',
-      'Progettazione di percorsi e certificazioni',
-      'Workshop executive e facilitazione',
+      'Audit di visibilità: cosa dicono di te ChatGPT, Perplexity, Gemini e le AI Overviews, e cosa dicono dei competitor',
+      'Entità, fonti e dati strutturati: il brand reso leggibile alle macchine, non solo alle persone',
+      'Contenuti citabili: pagine, FAQ e white paper scritti per finire dentro le risposte',
+      'Share of voice nelle risposte AI, misurata mese su mese',
     ],
-    keywords: ['Università', 'Aziende', 'Certificazioni'],
-    partners: [
+    keywords: ['Visibilità AI', 'Entità', 'Citazioni'],
+    workshop: { title: 'Come ti vedono le AI', text: 'In sala, dal vivo: interroghiamo le AI sulla tua azienda e sui competitor. Chi viene citato, chi sparisce, e perché. Esci con la mappa del gap.' },
+  },
+  {
+    name: 'KNOWLEDGE MANAGEMENT',
+    hint: 'Il sapere che resta quando le persone vanno via',
+    claim: 'Ogni azienda sa più di quanto riesca a usare. Il problema non è sapere: è ritrovare.',
+    services: [
+      'Mappatura del sapere: dove vive, chi lo tiene, dove si perde',
+      'Architettura della conoscenza: tassonomie, ontologie, ownership',
+      'Setup degli strumenti di knowledge sharing, AI interna compresa',
+      'Adozione: ruoli, rituali e change management, perché il sistema venga usato davvero',
+    ],
+    keywords: ['Ontologie', 'Sharing', 'Adozione'],
+    workshop: { title: 'Dove vive la vostra conoscenza', text: 'Mezza giornata con il team: mappiamo informazioni, owner e punti di fuga. Ne esce la base del progetto di setup.' },
+  },
+  {
+    name: 'APP VERTICALI',
+    hint: 'Software solo dove conosciamo il terreno',
+    claim: 'Non siamo una software house. Costruiamo app nei mondi che viviamo da dentro, dove il dettaglio decide tutto.',
+    services: [
+      'Dal problema operativo al concept validato',
+      'Design e sviluppo di web app e app native',
+      'Dati e AI dentro il prodotto, non appiccicati sopra',
+      'Lancio, metriche e iterazione',
+    ],
+    keywords: ['Travel & Lifestyle', 'Product', 'AI-native'],
+    workshop: { title: 'Dal problema all\'app', text: 'Si parte da un problema operativo reale. Si esce con un\'idea di applicativo validata, perimetro e priorità.' },
+    proof: 'LoungeCompy: trova, confronta e filtra le lounge aeroportuali dell\'area Schengen. In sviluppo.',
+  },
+];
+
+export const network: NetworkGroup[] = [
+  { name: 'FORMAZIONE & ACADEMIA', partners: [
       { name: 'Università di Roma Tor Vergata', url: 'https://web.uniroma2.it/it' },
       { name: 'Master EMCM Tor Vergata', url: 'https://economia.uniroma2.it/commedia' },
       { name: 'ESCP Business School', url: 'https://escp.eu/' },
@@ -28,19 +64,8 @@ export const sectors: Sector[] = [
       { name: 'AIFIA', url: 'https://www.aifia.it/' },
       { name: 'CEPAS Bureau Veritas', url: 'https://cepas.bureauveritas.it/' },
       { name: 'Talent Garden', url: 'https://talentgarden.com/en' },
-    ],
-  },
-  {
-    name: 'HEALTHCARE',
-    hint: 'Organizzazione, dati e AI per sanità e pharma',
-    services: [
-      'Riorganizzazione di processi clinici e amministrativi',
-      'Soluzioni AI per sanità e pubblica amministrazione',
-      'Bandi, PNRR e rendicontazione',
-      'Patient e caregiver experience',
-    ],
-    keywords: ['Processi', 'AI', 'Bandi'],
-    partners: [
+    ] },
+  { name: 'HEALTHCARE & PHARMA', partners: [
       { name: 'Pangenic (P4B.Ai)' },
       { name: 'More – Laboratorio di Organizzazione' },
       { name: 'Ministero della Salute (Progetto Vita)', url: 'https://www.salute.gov.it/' },
@@ -54,19 +79,8 @@ export const sectors: Sector[] = [
       { name: 'Teva Pharmaceuticals Italia', via: 'More – Laboratorio di Organizzazione' },
       { name: 'Sobi Italia', via: 'More – Laboratorio di Organizzazione' },
       { name: 'Getinge Italia', via: 'More – Laboratorio di Organizzazione' },
-    ],
-  },
-  {
-    name: 'COMMUNICATION',
-    hint: 'Posizionamento e crescita guidati dai dati',
-    services: [
-      'Strategia di marca e posizionamento',
-      'Social media e content strategy',
-      'Advertising e funnel di acquisizione',
-      'Eventi, community e partnership',
-    ],
-    keywords: ['Brand', 'Content', 'Eventi'],
-    partners: [
+    ] },
+  { name: 'COMMUNICATION & MEDIA', partners: [
       { name: 'Minnovo', url: 'https://minnovo.it' },
       { name: 'Webion', url: 'https://webion.com' },
       { name: 'The Crowd', url: 'https://www.thecrowdfunding.it' },
@@ -103,19 +117,8 @@ export const sectors: Sector[] = [
       { name: 'Brunello Cucinelli', via: 'Master EMCM — Tor Vergata' },
       { name: 'J&J Italia', via: 'Master EMCM — Tor Vergata' },
       { name: 'A.C. Marketing', via: 'Master EMCM — Tor Vergata' },
-    ],
-  },
-  {
-    name: 'SPORTS MANAGEMENT',
-    hint: 'Marketing e organizzazione nel mondo dello sport',
-    services: [
-      'Marketing e sponsorship per club e federazioni',
-      'Organizzazione di eventi sportivi',
-      'Docenza su management dello sport',
-      'Analisi di mercato e posizionamento',
-    ],
-    keywords: ['Club', 'Federazioni', 'Sponsorship'],
-    partners: [
+    ] },
+  { name: 'SPORT', partners: [
       { name: 'Sport e Salute', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
       { name: 'AC Milan', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
       { name: 'AS Roma', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
@@ -135,61 +138,49 @@ export const sectors: Sector[] = [
       { name: 'NBC', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
       { name: 'Sporteconomy', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
       { name: 'Goal.com', via: 'Master in Marketing e Management dello Sport — Tor Vergata' },
-    ],
-  },
-  {
-    name: 'EVENT MANAGEMENT',
-    hint: 'Format, produzione e community attorno agli eventi',
-    services: [
-      'Ideazione e format di evento',
-      'Project management e produzione',
-      'Sponsorship e partnership',
-      'Community e comunicazione dell\'evento',
-    ],
-    keywords: ['Format', 'Produzione', 'Sponsorship'],
-    partners: [
+    ] },
+  { name: 'EVENTI', partners: [
       { name: 'The Crowd', url: 'https://www.thecrowdfunding.it' },
       { name: 'Webion', url: 'https://webion.com' },
       { name: 'YouMark', url: 'https://youmark.it' },
       { name: 'Urban Fitness', url: 'https://www.urbanfitness.it' },
       { name: 'Rome Future Week', url: 'https://romefutureweek.it' },
-    ],
-  },
+    ] },
 ];
 
 export const highlights = [
-  { title: 'Consulenza Manageriale', description: 'Solida base accademica unita a concreta esperienza sul campo.' },
-  { title: 'AI & Innovation', description: "Soluzioni AI per l'ottimizzazione dei processi aziendali." },
-  { title: 'Formazione Accademica', description: 'Docente universitario e PhD in Innovation Management.' },
-  { title: 'Track Record', description: 'Co-founder Minnovo.it, esperienza cross-industry.' },
+  { title: 'LLM e ontologie, ogni giorno', description: "Lavoriamo su modelli linguistici costruiti su ontologie di dominio: sappiamo come una AI legge un'azienda." },
+  { title: 'Rigore accademico', description: 'PhD in Business Management, docenza di Management a Tor Vergata. Prima il metodo, poi le opinioni.' },
+  { title: 'Growth sul campo', description: 'Abbiamo guidato il marketing di Minnovo da 1 a 60.000 follower. La visibilità si misura, non si promette.' },
+  { title: 'Formazione che sposta', description: 'Docenze e workshop per università, business school e aziende, in Italia e all\'estero.' },
 ];
 
 // Le parole dentro l'anfora.
 export const pills = [
-  { word: 'Strategia', tone: 'chip-black' },
-  { word: 'AI', tone: 'chip-gold' },
-  { word: 'Formazione', tone: 'chip-plain' },
-  { word: 'Healthcare', tone: 'chip-plain' },
-  { word: 'Communication', tone: 'chip-black' },
-  { word: 'Growth', tone: 'chip-gold' },
-  { word: 'Innovazione', tone: 'chip-plain' },
-  { word: 'Bandi', tone: 'chip-plain' },
-  { word: 'KPI', tone: 'chip-gold' },
-  { word: 'Pharma', tone: 'chip-black' },
-  { word: 'Digital', tone: 'chip-plain' },
-  { word: 'Eventi', tone: 'chip-plain' },
-  { word: 'Sport', tone: 'chip-gold' },
-  { word: 'Branding', tone: 'chip-plain' },
-  { word: 'Advertising', tone: 'chip-black' },
-  { word: 'Content', tone: 'chip-plain' },
-  { word: 'Social', tone: 'chip-plain' },
-  { word: 'PNRR', tone: 'chip-gold' },
-  { word: 'Processi', tone: 'chip-plain' },
-  { word: 'Docenza', tone: 'chip-plain' },
-  { word: 'Workshop', tone: 'chip-plain' },
-  { word: 'Community', tone: 'chip-gold' },
-  { word: 'Ricerca', tone: 'chip-plain' },
-  { word: 'Sponsorship', tone: 'chip-black' },
+  { word: 'GEO', tone: 'chip-gold' },
+  { word: 'ChatGPT', tone: 'chip-black' },
+  { word: 'Perplexity', tone: 'chip-plain' },
+  { word: 'Gemini', tone: 'chip-plain' },
+  { word: 'AI Overviews', tone: 'chip-black' },
+  { word: 'Entità', tone: 'chip-plain' },
+  { word: 'Citazioni', tone: 'chip-gold' },
+  { word: 'schema.org', tone: 'chip-plain' },
+  { word: 'llms.txt', tone: 'chip-plain' },
+  { word: 'Knowledge', tone: 'chip-black' },
+  { word: 'Ontologie', tone: 'chip-gold' },
+  { word: 'Sharing', tone: 'chip-plain' },
+  { word: 'Know-how', tone: 'chip-plain' },
+  { word: 'Onboarding', tone: 'chip-plain' },
+  { word: 'Adozione', tone: 'chip-black' },
+  { word: 'LLM', tone: 'chip-gold' },
+  { word: 'App', tone: 'chip-black' },
+  { word: 'Product', tone: 'chip-plain' },
+  { word: 'Travel', tone: 'chip-plain' },
+  { word: 'Lifestyle', tone: 'chip-plain' },
   { word: 'Data', tone: 'chip-gold' },
-  { word: 'Partnership', tone: 'chip-black' },
+  { word: 'Workshop', tone: 'chip-black' },
+  { word: 'Discovery', tone: 'chip-plain' },
+  { word: 'Festina lente', tone: 'chip-gold' },
+  { word: 'Brand', tone: 'chip-plain' },
+  { word: 'Share of voice', tone: 'chip-black' },
 ];

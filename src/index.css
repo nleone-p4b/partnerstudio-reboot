@@ -160,6 +160,14 @@
 .panel-partners a:hover svg { opacity:1; }
 .panel-partners span { color:var(--secondary-text); font-weight:500; }
 .panel-cta { margin-top:14px; min-height:44px; flex-shrink:0; }
+.panel-claim { margin:4px 0 18px; font-size:17px; line-height:1.4; font-weight:700; color:var(--ink); letter-spacing:-.005em; }
+.panel-partners .panel-services li { padding:9px 2px 9px 18px; position:relative; font-size:13.5px; line-height:1.45; font-weight:500; color:var(--body-text); }
+.panel-partners .panel-services li::before { content:""; position:absolute; left:2px; top:16px; width:7px; height:7px; border-radius:50%; background:var(--brand-gold); }
+.panel-workshop { margin-top:18px; padding:16px 18px; border-radius:20px; }
+.panel-workshop strong { display:block; margin:4px 0 6px; font-size:16px; color:var(--ink); }
+.panel-workshop p:last-child { margin:0; font-size:13.5px; line-height:1.55; color:var(--body-text); }
+.panel-proof { margin:0; font-size:13.5px; line-height:1.5; color:var(--body-text); }
+.partner-origin { margin:14px 0 4px; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--secondary-text); }
 
 /* ---------- Notifica della chat ---------- */
 .chat-nudge { position:fixed; right:24px; bottom:98px; z-index:55; width:min(360px,calc(100vw - 32px)); display:flex; align-items:center; gap:4px; padding:10px 10px 10px 12px; border-radius:20px;
